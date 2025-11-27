@@ -5,15 +5,22 @@ const facilitySchema = new mongoose.Schema({
   icon: String,
 });
 
+const faqSchema = new mongoose.Schema({
+  question: { type: String, required: true },
+  answer: { type: String, required: true },
+});
+
 const propertySchema = new mongoose.Schema({
 
-  // added vender here
-    vendorId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-  // added vender end
+  // // added vender here
+  //   vendorId: {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "User",
+  //     required: true,
+  //   },
+  // // added vender end
+
+  
 
   name: { type: String, required: true },
   shortTitle:{type:String},
@@ -29,6 +36,10 @@ const propertySchema = new mongoose.Schema({
   bannerImage: {type:String},
   galleryImages: [String],
   facilities: [facilitySchema],
+
+  // ⬇️ New FAQ section
+  faqs: [faqSchema],
+
 });
 
 export default mongoose.model("Property", propertySchema);

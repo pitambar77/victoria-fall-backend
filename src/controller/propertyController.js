@@ -17,6 +17,7 @@ export const createProperty = async (req, res) => {
       contactNumber,
       priceperPerson,
       facilities, // ✅ handle facilities from JSON string if sent
+      faqs          // JSON string → will parse below
      } = req.body;
     const bannerImage = req.files?.bannerImage?.[0]?.path;
     const galleryImages = req.files?.galleryImages?.map((file) => file.path) || [];
@@ -37,6 +38,7 @@ export const createProperty = async (req, res) => {
       bannerImage,
       galleryImages,
       facilities: facilities ? JSON.parse(facilities) : [],
+      faqs: faqs ? JSON.parse(faqs) : [],
     });
 
     await property.save();
@@ -83,6 +85,11 @@ export const updateProperty = async (req, res) => {
     if (updateData.facilities) {
       updateData.facilities = JSON.parse(updateData.facilities);
     }
+// faqs add here
+    if (updateData.faqs) {
+  updateData.faqs = JSON.parse(updateData.faqs);
+}
+
 
     const property = await Property.findByIdAndUpdate(id, updateData, { new: true });
     res.json(property);
