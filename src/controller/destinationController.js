@@ -36,23 +36,65 @@ export const getDestination = async (req, res) => {
   }
 };
 
-// Update
-export const updateDestination = async (req, res) => {
+// Get Destination by Slug
+export const getDestinationBySlug = async (req, res) => {
   try {
-    const { name,overview } = req.body;
-    const bannerImage = req.file?.path;
-    const dest = await Destination.findByIdAndUpdate(
-      req.params.id,
-      { name,overview, ...(bannerImage && { bannerImage }) },
-      { new: true }
-    );
-    if (!dest) return res.status(404).json({ message: "Destination not found" });
+    const dest = await Destination.findOne({ slug: req.params.slug });
+
+    if (!dest) {
+      return res.status(404).json({ message: "Destination not found" });
+    }
+
     res.json(dest);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
   }
 };
+
+
+// Update
+// export const updateDestination = async (req, res) => {
+//   try {
+//     const { name,overview } = req.body;
+//     const bannerImage = req.file?.path;
+//     const dest = await Destination.findByIdAndUpdate(
+//       req.params.id,
+//       { name,overview, ...(bannerImage && { bannerImage }) },
+//       { new: true }
+//     );
+//     if (!dest) return res.status(404).json({ message: "Destination not found" });
+//     res.json(dest);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: err.message });
+//   }
+// };
+
+export const updateDestination = async (req, res) => {
+  try {
+    const { name, overview } = req.body;
+    const bannerImage = req.file?.path;
+
+    const dest = await Destination.findById(req.params.id);
+    if (!dest) {
+      return res.status(404).json({ message: "Destination not found" });
+    }
+
+    if (name) dest.name = name;
+    if (overview) dest.overview = overview;
+    if (bannerImage) dest.bannerImage = bannerImage;
+
+    // ✅ THIS triggers slug generation
+    await dest.save();
+
+    res.json(dest);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
 
 // Delete
 export const deleteDestination = async (req, res) => {

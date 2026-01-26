@@ -25,13 +25,15 @@ import {
   getDestinations,
   getDestination,
   updateDestination,
-  deleteDestination
+  deleteDestination,
+  getDestinationBySlug
 } from "../controller/destinationController.js";
 
 const router = express.Router();
 
 router.post("/", upload.single("bannerImage"), createDestination);
 router.get("/", getDestinations);
+router.get("/slug/:slug", getDestinationBySlug);
 router.get("/:id", getDestination);
 router.put("/:id", upload.single("bannerImage"), updateDestination);
 router.delete("/:id", deleteDestination);

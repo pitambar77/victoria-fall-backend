@@ -1,1 +1,1 @@
-export const DB_NAME ="victoria"
+export const DB_NAME ="Victoria"
