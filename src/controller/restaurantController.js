@@ -245,6 +245,8 @@
 //   }
 // };
 
+//feb-2 changes
+
 import Restaurant from "../models/Restaurant.js";
 import cloudinary from "../config/cloudinary.js";
 
@@ -343,18 +345,36 @@ export const updateRestaurant = async (req, res) => {
       return res.status(404).json({ message: "Restaurant not found" });
 
     /* ===== Banner ===== */
-    if (req.files?.bannerImage?.[0] && restaurant.bannerImage) {
-      const publicId = getPublicIdFromUrl(restaurant.bannerImage);
-      if (publicId) await cloudinary.uploader.destroy(publicId);
-      updateData.bannerImage = req.files.bannerImage[0].path;
-    }
+    // if (req.files?.bannerImage?.[0] && restaurant.bannerImage) {
+    //   const publicId = getPublicIdFromUrl(restaurant.bannerImage);
+    //   if (publicId) await cloudinary.uploader.destroy(publicId);
+    //   updateData.bannerImage = req.files.bannerImage[0].path;
+    // }
+
+    if (req.files?.bannerImage?.[0]) {
+  if (restaurant.bannerImage) {
+    const publicId = getPublicIdFromUrl(restaurant.bannerImage);
+    if (publicId) await cloudinary.uploader.destroy(publicId);
+  }
+  updateData.bannerImage = req.files.bannerImage[0].path;
+}
+
 
     /* ===== Overview Image ===== */
-    if (req.files?.overviewImage?.[0] && restaurant.overviewImage) {
-      const publicId = getPublicIdFromUrl(restaurant.overviewImage);
-      if (publicId) await cloudinary.uploader.destroy(publicId);
-      updateData.overviewImage = req.files.overviewImage[0].path;
-    }
+    // if (req.files?.overviewImage?.[0] && restaurant.overviewImage) {
+    //   const publicId = getPublicIdFromUrl(restaurant.overviewImage);
+    //   if (publicId) await cloudinary.uploader.destroy(publicId);
+    //   updateData.overviewImage = req.files.overviewImage[0].path;
+    // }
+
+    if (req.files?.overviewImage?.[0]) {
+  if (restaurant.overviewImage) {
+    const publicId = getPublicIdFromUrl(restaurant.overviewImage);
+    if (publicId) await cloudinary.uploader.destroy(publicId);
+  }
+  updateData.overviewImage = req.files.overviewImage[0].path;
+}
+
 
     /* ===== Gallery ===== */
     if (req.files?.galleryImages?.length) {
