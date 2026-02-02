@@ -334,6 +334,23 @@ export const getRestaurantById = async (req, res) => {
   }
 };
 
+export const getRestaurantBySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    const restaurant = await Restaurant.findOne({ slug });
+
+    if (!restaurant) {
+      return res.status(404).json({ message: "Restaurant not found" });
+    }
+
+    res.json(restaurant);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 /* ================= UPDATE ================= */
 export const updateRestaurant = async (req, res) => {
   try {
