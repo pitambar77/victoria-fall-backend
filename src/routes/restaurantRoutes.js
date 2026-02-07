@@ -1,13 +1,10 @@
-
-
-
 import express from "express";
 import upload from "../middleware/upload.js";
 import {
   createRestaurant,
   getRestaurants,
+  getRestaurantBySlug, // ✅ ADD THIS
   getRestaurantById,
-   getRestaurantBySlug, // ✅ ADD THIS
   updateRestaurant,
   deleteRestaurant,
   removeGalleryImage,
