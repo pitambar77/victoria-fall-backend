@@ -126,6 +126,8 @@ import actbookingRoutes from "./routes/ActivityRoutes/actbookingRoutes.js";
 import restauBookingRoutes from "./routes/RestaurantRoutes/restauBookingRoutes.js";
 import contactusRoutes from "./routes/ContactusRoutes/contactusRoutes.js";
 import ownerRoutes from "./routes/OwnerRoutes/ownerRoutes.js";
+import property from "./routes/PropertyRoutes/properties.js";
+
 
 dotenv.config();
 const app = express();
@@ -147,6 +149,8 @@ app.use("/api/restaubookings", restauBookingRoutes);
 app.use("/api/contactus", contactusRoutes);
 
 app.use("/api/owner-applications", ownerRoutes);
+
+app.use("/api/property", property);
 
 connectDB();
 const PORT = process.env.PORT || 8000;
