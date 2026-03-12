@@ -119,6 +119,9 @@ const propertySchema = new mongoose.Schema(
     sleeps: {
       type: String,
     },
+    guest: {
+      type: String,
+    },
 
     distance: {
       type: String,
