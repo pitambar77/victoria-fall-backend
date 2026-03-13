@@ -54,6 +54,7 @@ import {
   deleteBathroomDetail,
   updateBathroomDetail,
   addBathroomDetail,
+  getPropertyBySlug
 } from "../../controller/PropertyController/propertyController.js";
 
 const router = express.Router();
@@ -82,6 +83,7 @@ router.post(
 ========================================= */
 
 router.get("/", getProperties);
+router.get("/slug/:slug", getPropertyBySlug);
 router.get("/:id", getPropertyById);
 router.delete("/:id", deleteProperty);
 

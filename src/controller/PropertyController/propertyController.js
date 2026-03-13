@@ -175,6 +175,21 @@ export const getPropertyById = async (req, res) => {
   }
 };
 
+export const getPropertyBySlug = async (req, res) => {
+  try {
+    const property = await Property.findOne({ slug: req.params.slug });
+
+    if (!property) {
+      return res.status(404).json({ message: "Property not found" });
+    }
+
+    res.json(property);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const addOverviewBlock = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);
