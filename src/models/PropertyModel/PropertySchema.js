@@ -109,12 +109,12 @@ const propertySchema = new mongoose.Schema(
 
     rating: {
       type: String,
-      default: 0,
+      
     },
 
     reviews: {
       type: String,
-      default: 0,
+      
     },
     sleeps: {
       type: String,
@@ -148,12 +148,12 @@ const propertySchema = new mongoose.Schema(
 
     city: {
       type: String,
-      default: "Victoria Falls",
+      
     },
 
     country: {
       type: String,
-      default: "Zimbabwe",
+      
     },
   },
   { timestamps: true }

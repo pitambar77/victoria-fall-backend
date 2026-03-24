@@ -36,12 +36,12 @@ export const createProperty = async (req, res) => {
        HIGHLIGHTS
     ===================== */
 
-    if (req.files?.highlightIcons) {
-      data.highlights = data.highlights.map((h, i) => ({
-        ...h,
-        icon: req.files.highlightIcons[i]?.path || "",
-      }));
-    }
+    // if (req.files?.highlightIcons) {
+    //   data.highlights = data.highlights.map((h, i) => ({
+    //     ...h,
+    //     icon: req.files.highlightIcons[i]?.path || "",
+    //   }));
+    // }
 
     /* =====================
        GALLERY
@@ -58,85 +58,85 @@ export const createProperty = async (req, res) => {
        ROOMS
     ===================== */
 
-    if (req.files?.roomIcons) {
-      data.rooms = data.rooms.map((r, i) => ({
-        ...r,
-        icon: req.files.roomIcons[i]?.path || "",
-      }));
-    }
+    // if (req.files?.roomIcons) {
+    //   data.rooms = data.rooms.map((r, i) => ({
+    //     ...r,
+    //     icon: req.files.roomIcons[i]?.path || "",
+    //   }));
+    // }
 
 
   /* =====================
    BATHROOM DETAILS
 ===================== */
 
-if (req.files?.bathroomIcons) {
+// if (req.files?.bathroomIcons) {
 
-  let index = 0;
+//   let index = 0;
 
-  data.bathrooms = data.bathrooms.map((bath) => ({
+//   data.bathrooms = data.bathrooms.map((bath) => ({
 
-    ...bath,
+//     ...bath,
 
-    bathdetails: bath.bathdetails.map((detail) => ({
-      ...detail,
-      icon: req.files.bathroomIcons[index++]?.path || ""
-    }))
+//     bathdetails: bath.bathdetails.map((detail) => ({
+//       ...detail,
+//       icon: req.files.bathroomIcons[index++]?.path || ""
+//     }))
 
-  }));
+//   }));
 
-}
+// }
 
     /* =====================
        SPACE
     ===================== */
 
-    if (req.files?.spaceIcons) {
-      data.space = data.space.map((s, i) => ({
-        ...s,
-        icon: req.files.spaceIcons[i]?.path || "",
-      }));
-    }
+    // if (req.files?.spaceIcons) {
+    //   data.space = data.space.map((s, i) => ({
+    //     ...s,
+    //     icon: req.files.spaceIcons[i]?.path || "",
+    //   }));
+    // }
 
     /* =====================
        AMENITIES
     ===================== */
 
-    if (req.files?.amenityIcons) {
-      let index = 0;
+    // if (req.files?.amenityIcons) {
+    //   let index = 0;
 
-      data.aminities.basic = data.aminities.basic.map((a) => ({
-        ...a,
-        icon: req.files.amenityIcons[index++]?.path || "",
-      }));
+    //   data.aminities.basic = data.aminities.basic.map((a) => ({
+    //     ...a,
+    //     icon: req.files.amenityIcons[index++]?.path || "",
+    //   }));
 
-      data.aminities.additional = data.aminities.additional.map((a) => ({
-        ...a,
-        icon: req.files.amenityIcons[index++]?.path || "",
-      }));
-    }
+    //   data.aminities.additional = data.aminities.additional.map((a) => ({
+    //     ...a,
+    //     icon: req.files.amenityIcons[index++]?.path || "",
+    //   }));
+    // }
 
     /* =====================
    AREA ACTIVITIES
 ===================== */
 
-    if (req.files?.activityIcons) {
-      data.area.relatedactivity = data.area.relatedactivity.map((a, i) => ({
-        ...a,
-        icon: req.files.activityIcons[i]?.path || "",
-      }));
-    }
+    // if (req.files?.activityIcons) {
+    //   data.area.relatedactivity = data.area.relatedactivity.map((a, i) => ({
+    //     ...a,
+    //     icon: req.files.activityIcons[i]?.path || "",
+    //   }));
+    // }
 
     /* =====================
        HOUSE RULES
     ===================== */
 
-    if (req.files?.ruleIcons) {
-      data.houserule.rule = data.houserule.rule.map((r, i) => ({
-        ...r,
-        icon: req.files.ruleIcons[i]?.path || "",
-      }));
-    }
+    // if (req.files?.ruleIcons) {
+    //   data.houserule.rule = data.houserule.rule.map((r, i) => ({
+    //     ...r,
+    //     icon: req.files.ruleIcons[i]?.path || "",
+    //   }));
+    // }
 
     const property = new Property(data);
 
