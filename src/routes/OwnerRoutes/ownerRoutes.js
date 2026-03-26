@@ -16,21 +16,21 @@ router.post(
   "/",
   upload.fields([
     // Property images
-    { name: "heroImage", maxCount: 1 },
-    { name: "bedroomImages", maxCount: 10 },
-    { name: "bathroomImages", maxCount: 10 },
-    { name: "kitchenImages", maxCount: 10 },
-    { name: "outdoorImages", maxCount: 10 },
+    { name: "heroImage", maxCount: 10 },
+    { name: "bedroomImages", maxCount: 20 },
+    { name: "bathroomImages", maxCount: 20 },
+    { name: "kitchenImages", maxCount: 20 },
+    { name: "outdoorImages", maxCount: 20 },
 
     // Restaurant images
-    { name: "exteriorImages", maxCount: 10 },
-    { name: "interiorImages", maxCount: 10 },
-    { name: "restaurantKitchenImages", maxCount: 10 },
-    { name: "diningImages", maxCount: 10 },
+    { name: "exteriorImages", maxCount: 20 },
+    { name: "interiorImages", maxCount: 20 },
+    { name: "restaurantKitchenImages", maxCount: 20 },
+    { name: "diningImages", maxCount: 20 },
 
     // Activity images
-    { name: "activityImages", maxCount: 10 },
-    { name: "activityscImages", maxCount: 10 },
+    { name: "activityImages", maxCount: 20 },
+    { name: "activityscImages", maxCount: 20 },
     { name:"tourism",maxCount:5}
   ]),
   createOwnerApplication
