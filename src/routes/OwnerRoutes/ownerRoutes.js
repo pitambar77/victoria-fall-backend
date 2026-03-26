@@ -31,7 +31,7 @@ router.post(
     // Activity images
     { name: "activityImages", maxCount: 20 },
     { name: "activityscImages", maxCount: 20 },
-    { name:"tourism",maxCount:5}
+    { name:"tourism",maxCount:15}
   ]),
   createOwnerApplication
 );
