@@ -1,4 +1,3 @@
-
 import slugify from "slugify";
 import Property from "../../models/PropertyModel/PropertySchema.js";
 import cloudinary from "../../config/cloudinary.js";
@@ -65,27 +64,26 @@ export const createProperty = async (req, res) => {
     //   }));
     // }
 
-
-  /* =====================
+    /* =====================
    BATHROOM DETAILS
 ===================== */
 
-// if (req.files?.bathroomIcons) {
+    // if (req.files?.bathroomIcons) {
 
-//   let index = 0;
+    //   let index = 0;
 
-//   data.bathrooms = data.bathrooms.map((bath) => ({
+    //   data.bathrooms = data.bathrooms.map((bath) => ({
 
-//     ...bath,
+    //     ...bath,
 
-//     bathdetails: bath.bathdetails.map((detail) => ({
-//       ...detail,
-//       icon: req.files.bathroomIcons[index++]?.path || ""
-//     }))
+    //     bathdetails: bath.bathdetails.map((detail) => ({
+    //       ...detail,
+    //       icon: req.files.bathroomIcons[index++]?.path || ""
+    //     }))
 
-//   }));
+    //   }));
 
-// }
+    // }
 
     /* =====================
        SPACE
@@ -184,7 +182,6 @@ export const getPropertyBySlug = async (req, res) => {
     }
 
     res.json(property);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -265,8 +262,13 @@ export const addHighlight = async (req, res) => {
     if (!property)
       return res.status(404).json({ message: "Property not found" });
 
+    // const highlight = {
+    //   icon: req.file ? req.file.path : "",
+    //   title: req.body.title,
+    //   description: req.body.description,
+    // };
     const highlight = {
-      icon: req.file ? req.file.path : "",
+      icon: req.body.icon || "",
       title: req.body.title,
       description: req.body.description,
     };
@@ -290,17 +292,21 @@ export const updateHighlight = async (req, res) => {
     if (!highlight)
       return res.status(404).json({ message: "Highlight not found" });
 
+    // highlight.title = req.body.title || highlight.title;
+    // highlight.description = req.body.description || highlight.description;
+
+    // if (req.file) {
+    //   if (highlight.icon) {
+    //     const publicId = getPublicIdFromUrl(highlight.icon);
+    //     await cloudinary.uploader.destroy(publicId);
+    //   }
+
+    //   highlight.icon = req.file.path;
+    // }
+
     highlight.title = req.body.title || highlight.title;
     highlight.description = req.body.description || highlight.description;
-
-    if (req.file) {
-      if (highlight.icon) {
-        const publicId = getPublicIdFromUrl(highlight.icon);
-        await cloudinary.uploader.destroy(publicId);
-      }
-
-      highlight.icon = req.file.path;
-    }
+    highlight.icon = req.body.icon || highlight.icon;
 
     await property.save();
 
@@ -421,7 +427,8 @@ export const addBasicAmenity = async (req, res) => {
     const property = await Property.findById(req.params.id);
 
     const amenity = {
-      icon: req.file ? req.file.path : "",
+      // icon: req.file ? req.file.path : "",
+      icon: req.body.icon || "",
       aminityName: req.body.aminityName,
     };
 
@@ -446,13 +453,14 @@ export const updateBasicAmenity = async (req, res) => {
 
     amenity.aminityName = req.body.aminityName || amenity.aminityName;
 
-    if (req.file) {
-      if (amenity.icon) {
-        const publicId = getPublicIdFromUrl(amenity.icon);
-        await cloudinary.uploader.destroy(publicId);
-      }
-      amenity.icon = req.file.path;
-    }
+    // if (req.file) {
+    //   if (amenity.icon) {
+    //     const publicId = getPublicIdFromUrl(amenity.icon);
+    //     await cloudinary.uploader.destroy(publicId);
+    //   }
+    //   amenity.icon = req.file.path;
+    // }
+    amenity.icon = req.body.icon || amenity.icon;
 
     await property.save();
     res.json(property);
@@ -467,10 +475,10 @@ export const deleteBasicAmenity = async (req, res) => {
 
     const amenity = property.aminities.basic.id(req.params.amenityId);
 
-    if (amenity.icon) {
-      const publicId = getPublicIdFromUrl(amenity.icon);
-      await cloudinary.uploader.destroy(publicId);
-    }
+    // if (amenity.icon) {
+    //   const publicId = getPublicIdFromUrl(amenity.icon);
+    //   await cloudinary.uploader.destroy(publicId);
+    // }
 
     amenity.deleteOne();
 
@@ -487,7 +495,8 @@ export const addAdditionalAmenity = async (req, res) => {
     const property = await Property.findById(req.params.id);
 
     const amenity = {
-      icon: req.file ? req.file.path : "",
+      // icon: req.file ? req.file.path : "",
+      icon: req.body.icon || "",
       aminityName: req.body.aminityName,
     };
 
@@ -512,14 +521,14 @@ export const updateAdditionalAmenity = async (req, res) => {
 
     amenity.aminityName = req.body.aminityName || amenity.aminityName;
 
-    if (req.file) {
-      if (amenity.icon) {
-        const publicId = getPublicIdFromUrl(amenity.icon);
-        await cloudinary.uploader.destroy(publicId);
-      }
-      amenity.icon = req.file.path;
-    }
-
+    // if (req.file) {
+    //   if (amenity.icon) {
+    //     const publicId = getPublicIdFromUrl(amenity.icon);
+    //     await cloudinary.uploader.destroy(publicId);
+    //   }
+    //   amenity.icon = req.file.path;
+    // }
+    amenity.icon = req.body.icon || amenity.icon;
     await property.save();
     res.json(property);
   } catch (error) {
@@ -535,10 +544,10 @@ export const deleteAdditionalAmenity = async (req, res) => {
 
     if (!amenity) return res.status(404).json({ message: "Amenity not found" });
 
-    if (amenity.icon) {
-      const publicId = getPublicIdFromUrl(amenity.icon);
-      await cloudinary.uploader.destroy(publicId);
-    }
+    // if (amenity.icon) {
+    //   const publicId = getPublicIdFromUrl(amenity.icon);
+    //   await cloudinary.uploader.destroy(publicId);
+    // }
 
     amenity.deleteOne();
 
@@ -555,7 +564,8 @@ export const addRelatedActivity = async (req, res) => {
     const property = await Property.findById(req.params.id);
 
     const activity = {
-      icon: req.file ? req.file.path : "",
+      // icon: req.file ? req.file.path : "",
+      icon: req.body.icon || "",
       title: req.body.title,
       shortDescription: req.body.shortDescription,
     };
@@ -584,13 +594,15 @@ export const updateRelatedActivity = async (req, res) => {
     activity.shortDescription =
       req.body.shortDescription || activity.shortDescription;
 
-    if (req.file) {
-      if (activity.icon) {
-        const publicId = getPublicIdFromUrl(activity.icon);
-        await cloudinary.uploader.destroy(publicId);
-      }
-      activity.icon = req.file.path;
-    }
+    // if (req.file) {
+    //   if (activity.icon) {
+    //     const publicId = getPublicIdFromUrl(activity.icon);
+    //     await cloudinary.uploader.destroy(publicId);
+    //   }
+    //   activity.icon = req.file.path;
+    // }
+
+    activity.icon = req.body.icon || activity.icon;
 
     await property.save();
     res.json(property);
@@ -611,10 +623,10 @@ export const deleteRelatedActivity = async (req, res) => {
     if (!activity)
       return res.status(404).json({ message: "Activity not found" });
 
-    if (activity.icon) {
-      const publicId = getPublicIdFromUrl(activity.icon);
-      await cloudinary.uploader.destroy(publicId);
-    }
+    // if (activity.icon) {
+    //   const publicId = getPublicIdFromUrl(activity.icon);
+    //   await cloudinary.uploader.destroy(publicId);
+    // }
 
     activity.deleteOne();
 
@@ -636,7 +648,8 @@ export const addRoom = async (req, res) => {
     const room = {
       bedroomName: req.body.bedroomName,
       bed: req.body.bed,
-      icon: req.file ? req.file.path : "",
+      // icon: req.file ? req.file.path : "",
+      icon: req.body.icon || "",
     };
 
     property.rooms.push(room);
@@ -660,13 +673,14 @@ export const updateRoom = async (req, res) => {
     room.bedroomName = req.body.bedroomName || room.bedroomName;
     room.bed = req.body.bed || room.bed;
 
-    if (req.file) {
-      if (room.icon) {
-        const publicId = getPublicIdFromUrl(room.icon);
-        await cloudinary.uploader.destroy(publicId);
-      }
-      room.icon = req.file.path;
-    }
+    // if (req.file) {
+    //   if (room.icon) {
+    //     const publicId = getPublicIdFromUrl(room.icon);
+    //     await cloudinary.uploader.destroy(publicId);
+    //   }
+    //   room.icon = req.file.path;
+    // }
+    room.icon = req.body.icon || room.icon;
 
     await property.save();
 
@@ -684,10 +698,10 @@ export const deleteRoom = async (req, res) => {
 
     if (!room) return res.status(404).json({ message: "Room not found" });
 
-    if (room.icon) {
-      const publicId = getPublicIdFromUrl(room.icon);
-      await cloudinary.uploader.destroy(publicId);
-    }
+    // if (room.icon) {
+    //   const publicId = getPublicIdFromUrl(room.icon);
+    //   await cloudinary.uploader.destroy(publicId);
+    // }
 
     room.deleteOne();
 
@@ -721,7 +735,6 @@ export const deleteRoom = async (req, res) => {
 
 export const addBathroom = async (req, res) => {
   try {
-
     const property = await Property.findById(req.params.id);
 
     if (!property)
@@ -729,7 +742,7 @@ export const addBathroom = async (req, res) => {
 
     const bathroom = {
       bathName: req.body.bathName,
-      bathdetails: []
+      bathdetails: [],
     };
 
     property.bathrooms.push(bathroom);
@@ -737,7 +750,6 @@ export const addBathroom = async (req, res) => {
     await property.save();
 
     res.json(property);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -745,7 +757,6 @@ export const addBathroom = async (req, res) => {
 
 export const addBathroomDetail = async (req, res) => {
   try {
-
     const property = await Property.findById(req.params.id);
 
     const bathroom = property.bathrooms.id(req.params.bathroomId);
@@ -755,7 +766,8 @@ export const addBathroomDetail = async (req, res) => {
 
     const detail = {
       name: req.body.name,
-      icon: req.file ? req.file.path : ""
+      // icon: req.file ? req.file.path : "",
+      icon: req.body.icon || "",
     };
 
     bathroom.bathdetails.push(detail);
@@ -763,7 +775,6 @@ export const addBathroomDetail = async (req, res) => {
     await property.save();
 
     res.json(property);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -782,13 +793,15 @@ export const updateBathroom = async (req, res) => {
     bathroom.bathName = req.body.bathName || bathroom.bathName;
     bathroom.name = req.body.name || bathroom.name;
 
-    if (req.file) {
-      if (bathroom.icon) {
-        const publicId = getPublicIdFromUrl(bathroom.icon);
-        await cloudinary.uploader.destroy(publicId);
-      }
-      bathroom.icon = req.file.path;
-    }
+    // if (req.file) {
+    //   if (bathroom.icon) {
+    //     const publicId = getPublicIdFromUrl(bathroom.icon);
+    //     await cloudinary.uploader.destroy(publicId);
+    //   }
+    //   bathroom.icon = req.file.path;
+    // }
+
+    // bathroom.name = req.body.name || bathroom.name;
 
     await property.save();
     res.json(property);
@@ -799,7 +812,6 @@ export const updateBathroom = async (req, res) => {
 
 export const updateBathroomDetail = async (req, res) => {
   try {
-
     const property = await Property.findById(req.params.id);
 
     const bathroom = property.bathrooms.id(req.params.bathroomId);
@@ -809,25 +821,23 @@ export const updateBathroomDetail = async (req, res) => {
 
     const detail = bathroom.bathdetails.id(req.params.detailId);
 
-    if (!detail)
-      return res.status(404).json({ message: "Detail not found" });
+    if (!detail) return res.status(404).json({ message: "Detail not found" });
 
     detail.name = req.body.name || detail.name;
 
-    if (req.file) {
+    // if (req.file) {
+    //   if (detail.icon) {
+    //     const publicId = getPublicIdFromUrl(detail.icon);
+    //     await cloudinary.uploader.destroy(publicId);
+    //   }
 
-      if (detail.icon) {
-        const publicId = getPublicIdFromUrl(detail.icon);
-        await cloudinary.uploader.destroy(publicId);
-      }
+    //   detail.icon = req.file.path;
+    // }
 
-      detail.icon = req.file.path;
-    }
-
+    detail.icon = req.body.icon || detail.icon;
     await property.save();
 
     res.json(property);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -845,10 +855,10 @@ export const deleteBathroom = async (req, res) => {
     if (!bathroom)
       return res.status(404).json({ message: "Bathroom not found" });
 
-    if (bathroom.icon) {
-      const publicId = getPublicIdFromUrl(bathroom.icon);
-      await cloudinary.uploader.destroy(publicId);
-    }
+    // if (bathroom.icon) {
+    //   const publicId = getPublicIdFromUrl(bathroom.icon);
+    //   await cloudinary.uploader.destroy(publicId);
+    // }
 
     bathroom.deleteOne();
 
@@ -862,27 +872,24 @@ export const deleteBathroom = async (req, res) => {
 
 export const deleteBathroomDetail = async (req, res) => {
   try {
-
     const property = await Property.findById(req.params.id);
 
     const bathroom = property.bathrooms.id(req.params.bathroomId);
 
     const detail = bathroom.bathdetails.id(req.params.detailId);
 
-    if (!detail)
-      return res.status(404).json({ message: "Detail not found" });
+    if (!detail) return res.status(404).json({ message: "Detail not found" });
 
-    if (detail.icon) {
-      const publicId = getPublicIdFromUrl(detail.icon);
-      await cloudinary.uploader.destroy(publicId);
-    }
+    // if (detail.icon) {
+    //   const publicId = getPublicIdFromUrl(detail.icon);
+    //   await cloudinary.uploader.destroy(publicId);
+    // }
 
     detail.deleteOne();
 
     await property.save();
 
     res.json(property);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -893,7 +900,8 @@ export const addSpace = async (req, res) => {
     const property = await Property.findById(req.params.id);
 
     const space = {
-      icon: req.file ? req.file.path : "",
+      // icon: req.file ? req.file.path : "",
+      icon: req.body.icon || "",
       title: req.body.title,
     };
 
@@ -918,13 +926,15 @@ export const updateSpace = async (req, res) => {
 
     space.title = req.body.title || space.title;
 
-    if (req.file) {
-      if (space.icon) {
-        const publicId = getPublicIdFromUrl(space.icon);
-        await cloudinary.uploader.destroy(publicId);
-      }
-      space.icon = req.file.path;
-    }
+    // if (req.file) {
+    //   if (space.icon) {
+    //     const publicId = getPublicIdFromUrl(space.icon);
+    //     await cloudinary.uploader.destroy(publicId);
+    //   }
+    //   space.icon = req.file.path;
+    // }
+
+    space.icon = req.body.icon || space.icon;
 
     await property.save();
     res.json(property);
@@ -941,10 +951,10 @@ export const deleteSpace = async (req, res) => {
 
     if (!space) return res.status(404).json({ message: "Space not found" });
 
-    if (space.icon) {
-      const publicId = getPublicIdFromUrl(space.icon);
-      await cloudinary.uploader.destroy(publicId);
-    }
+    // if (space.icon) {
+    //   const publicId = getPublicIdFromUrl(space.icon);
+    //   await cloudinary.uploader.destroy(publicId);
+    // }
 
     space.deleteOne();
 
@@ -961,7 +971,8 @@ export const addHouseRule = async (req, res) => {
     const property = await Property.findById(req.params.id);
 
     const rule = {
-      icon: req.file ? req.file.path : "",
+      // icon: req.file ? req.file.path : "",
+      icon: req.body.icon || "",
       title: req.body.title,
       description: req.body.description,
     };
@@ -988,13 +999,15 @@ export const updateHouseRule = async (req, res) => {
     rule.title = req.body.title || rule.title;
     rule.description = req.body.description || rule.description;
 
-    if (req.file) {
-      if (rule.icon) {
-        const publicId = getPublicIdFromUrl(rule.icon);
-        await cloudinary.uploader.destroy(publicId);
-      }
-      rule.icon = req.file.path;
-    }
+    // if (req.file) {
+    //   if (rule.icon) {
+    //     const publicId = getPublicIdFromUrl(rule.icon);
+    //     await cloudinary.uploader.destroy(publicId);
+    //   }
+    //   rule.icon = req.file.path;
+    // }
+
+    rule.icon = req.body.icon || rule.icon;
 
     await property.save();
     res.json(property);
@@ -1011,10 +1024,10 @@ export const deleteHouseRule = async (req, res) => {
 
     if (!rule) return res.status(404).json({ message: "Rule not found" });
 
-    if (rule.icon) {
-      const publicId = getPublicIdFromUrl(rule.icon);
-      await cloudinary.uploader.destroy(publicId);
-    }
+    // if (rule.icon) {
+    //   const publicId = getPublicIdFromUrl(rule.icon);
+    //   await cloudinary.uploader.destroy(publicId);
+    // }
 
     rule.deleteOne();
 
