@@ -306,7 +306,9 @@ export const updateHighlight = async (req, res) => {
 
     highlight.title = req.body.title || highlight.title;
     highlight.description = req.body.description || highlight.description;
-    highlight.icon = req.body.icon || highlight.icon;
+    if (req.body.icon !== undefined) {
+      highlight.icon = req.body.icon;
+    }
 
     await property.save();
 

@@ -10,7 +10,7 @@ const OwnerApplicationSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   businessName: { type: String },
   email: { type: String, required: true },
-  phone: { type: String, required: true },
+  phone: { type: String },
   wpnumber: { type: String },
   roleType: {
     type: String,
