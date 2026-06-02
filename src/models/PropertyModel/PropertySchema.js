@@ -12,6 +12,7 @@ const propertySchema = new mongoose.Schema(
       subTitle: String,
       landingsubcontent: String,
       description: [contentBlockSchema],
+      shortdescription:String,
     },
     slug: {
       type: String,
@@ -89,9 +90,11 @@ const propertySchema = new mongoose.Schema(
     },
     incidental: {
       description: [contentBlockSchema],
+      shortdescription:String,
     },
     information: {
       info: [contentBlockSchema],
+      shortInformation:String,
     },
     gallery: [
       {
