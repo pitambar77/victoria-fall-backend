@@ -15,7 +15,9 @@ import restauBookingRoutes from "./routes/RestaurantRoutes/restauBookingRoutes.j
 import contactusRoutes from "./routes/ContactusRoutes/contactusRoutes.js";
 import ownerRoutes from "./routes/OwnerRoutes/ownerRoutes.js";
 import property from "./routes/PropertyRoutes/properties.js";
-
+import homeRoutes from "./routes/HomeRoutes/homeRoutes.js"
+import authRoutes from "./routes/AuthRoute/authRoutes.js"
+import activitylandingRoutes from "./routes/ActivityRoutes/activitylandingRoutes.js"
 
 dotenv.config();
 const app = express();
@@ -39,6 +41,10 @@ app.use("/api/contactus", contactusRoutes);
 app.use("/api/owner-applications", ownerRoutes);
 
 app.use("/api/property", property);
+
+app.use("/api/home", homeRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/activitylanding", activitylandingRoutes);
 
 connectDB();
 const PORT = process.env.PORT || 8000;
