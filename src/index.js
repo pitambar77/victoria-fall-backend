@@ -18,6 +18,8 @@ import property from "./routes/PropertyRoutes/properties.js";
 import homeRoutes from "./routes/HomeRoutes/homeRoutes.js"
 import authRoutes from "./routes/AuthRoute/authRoutes.js"
 import activitylandingRoutes from "./routes/ActivityRoutes/activitylandingRoutes.js"
+import conciergeRoutes from "./routes/ConciergeRoutes/conciergeRoutes.js"
+import ownerapplicationlandingRoutes from "./routes/OwnerRoutes/ownerapplicationlandingRoutes.js"
 
 dotenv.config();
 const app = express();
@@ -45,9 +47,11 @@ app.use("/api/property", property);
 app.use("/api/home", homeRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/activitylanding", activitylandingRoutes);
+app.use("/api/concierge",conciergeRoutes);
+app.use("/api/ownerapplicationlanding",ownerapplicationlandingRoutes);
 
 connectDB();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8001;
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
 
 app.use((err, req, res, next) => {
