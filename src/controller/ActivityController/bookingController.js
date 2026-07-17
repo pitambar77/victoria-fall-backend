@@ -19,7 +19,7 @@ export const createBooking = async (req, res) => {
     // Admin Notification Email
     const adminMailOptions = {
       from: `"Victoria Falls Booking" <${process.env.MAIL_USER}>`,
-      to: process.env.MAIL_RECEIVER,
+      to: process.env.ADMIN_EMAIL,
       subject: `New Booking Request - ${bookingData.fullName}`,
       html: `
         <h2>New Booking Received</h2>

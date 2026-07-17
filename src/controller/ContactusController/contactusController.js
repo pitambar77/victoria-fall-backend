@@ -11,8 +11,8 @@ export const createBooking = async (req, res) => {
 
     // Admin Notification Email
     const adminMailOptions = {
-      from: process.env.MAIL_USER,
-      to: process.env.MAIL_RECEIVER,
+      from: `"Where To Africa" <${process.env.MAIL_USER}>`,
+      to: process.env.ADMIN_EMAIL,
       subject: `New Booking Request - ${bookingData.subject}`,
       html: `
         <h2>New Booking Received</h2>
@@ -30,7 +30,7 @@ export const createBooking = async (req, res) => {
 
     // User Confirmation Email
     const userMailOptions = {
-      from: process.env.MAIL_USER,
+      from: `"Where To Africa" <${process.env.MAIL_USER}>`,
       to: bookingData.email,
       subject: `Booking Confirmation - Thank You ${bookingData.firstName}`,
       html: `
